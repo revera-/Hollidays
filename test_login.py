@@ -26,12 +26,10 @@ class TestLogin(WebAppTest):
         """
         Проверяем возможность логина в систему
         """
-        search_text = "TMS Lite"
         self.login_page.visit().login('lara@lara.ru', '123123')
         acount_page = PersonalAссountPage(self.browser)
         result = acount_page.search_results
         print(' Проверяем возможность логина в систему test result = '+ str(result))
-        #assert search_text in result[0]
 
 
 if __name__ == '__main__':

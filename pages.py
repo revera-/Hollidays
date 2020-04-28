@@ -1,6 +1,7 @@
 import re
 from bok_choy.page_object import PageObject
-
+import time
+from selenium.webdriver.common.keys import Keys
 
 class LoginPage(PageObject):
     """
@@ -11,20 +12,23 @@ class LoginPage(PageObject):
 
     def is_browser_on_page(self):
         print('is_browser_on_page')
+        self.wait_for_page             # не работает?
         return 'TMS Lite' in self.browser.title
 
+
     def enter_login(self, login):
+        time.sleep(2)
         print('enter_login')
-        return self.q(css="input[name='login']").fill(login)
+        return self.browser.find_element_by_name('login').send_keys(login)
 
 
     def enter_password(self, password):
         print('enter_password')
-        return self.q(css="input[name='password']").fill(password)
+        return self.browser.find_element_by_name('password').send_keys(password + Keys.ENTER)
 
 
     def press_button_login(self):
-        self.q(css='button[api=object Object]')
+        #self.q(css='button[api=object Object]').click() #не работает?
         PersonalAссountPage(self.browser).wait_for_page()
         print('press_button_login')
 
@@ -48,6 +52,7 @@ class PersonalAссountPage(PageObject):
     url = None
 
     def is_browser_on_page(self):
+        time.sleep(2)
         print('is_browser_on_page')
         return self.q(css='.header - support_contacts').is_present
 
