@@ -49,17 +49,13 @@ class PersonalAссountPage(PageObject):
     """
     Личный кабинет пользователя
     """
-
-    # You do not navigate to this page directly
     url = None
 
     def is_browser_on_page(self):
-        title = self.browser.title
-        matches = re.match(u'^TMS Lite', title)
-        return matches is not None
+        return self.q(css='.header - support_contacts').is_present
 
 
     @property
     def search_results(self):
         title = self.browser.title
-        return title is not None
+        return title == 'TMS Lite'
