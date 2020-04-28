@@ -26,7 +26,7 @@ class TestLogin(WebAppTest):
         self.login_page.visit().login('lara@lara.ru', '123123')
         acount_page = PersonalAссountPage(self.browser)
         result = acount_page.search_results
-        print(result)
+        print('test result = 'result)
         #assert search_text in result[0]
 
 
