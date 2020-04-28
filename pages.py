@@ -1,6 +1,5 @@
 import re
 from bok_choy.page_object import PageObject
-from selenium.webdriver.common.keys import Keys
 
 
 class LoginPage(PageObject):
@@ -25,24 +24,16 @@ class LoginPage(PageObject):
 
 
     def press_button_login(self):
-        """
-        нажимаем кнопку Войти
-        """
-        #self.browser.find_element_by_css('button[api=object Object]')
         self.q(css='button[api=object Object]')
-        print('press_button_login')
         PersonalAссountPage(self.browser).wait_for_page()
+        print('press_button_login')
 
 
     def login(self, login, password):
         """
         Заполняем поля логин и пароль.
         Нажимет кнопку Войти.
-        :param login:
-        :param password:
-        :return:
         """
-
         self.enter_login(login)
         self.enter_password(password)
         self.press_button_login()

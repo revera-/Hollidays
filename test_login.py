@@ -11,12 +11,16 @@ class TestLogin(WebAppTest):
     def setUp(self):
         super(TestLogin, self).setUp()
         self.login_page = LoginPage(self.browser)
+        print('setUp')
+
 
     def test_page_existence(self):
         """
         Проверяем что мы на странице логина
         """
+        print('Проверяем что мы на странице логина test_page_existence')
         self.login_page.visit()
+
 
     def test_login(self):
         """
@@ -26,7 +30,7 @@ class TestLogin(WebAppTest):
         self.login_page.visit().login('lara@lara.ru', '123123')
         acount_page = PersonalAссountPage(self.browser)
         result = acount_page.search_results
-        print('test result = 'result)
+        print(' Проверяем возможность логина в систему test result = '+ str(result))
         #assert search_text in result[0]
 
 
