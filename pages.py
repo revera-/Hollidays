@@ -14,18 +14,11 @@ class LoginPage(PageObject):
         return 'TMS Lite' in self.browser.title
 
     def enter_login(self, login):
-        """
-        Заполнем поле Логин
-        """
         return self.q(css="input[name='login']").fill(login)
 
 
     def enter_password(self, password):
-        """
-        Заполняем поле пароль
-        """
-        return self.q(css="input[name='password']").fill(password+ Keys.ENTER)
-        PersonalAссountPage(self.browser).wait_for_page()
+        return self.q(css="input[name='password']").fill(password)
 
 
     def press_button_login(self):
@@ -34,8 +27,8 @@ class LoginPage(PageObject):
         """
         #self.browser.find_element_by_css('button[api=object Object]')
 
-        #self.q(css='button[api=object Object]')
-        #PersonalAссountPage(self.browser).wait_for_page()
+        self.q(css='button[api=object Object]')
+        PersonalAссountPage(self.browser).wait_for_page()
 
 
     def login(self, login, password):
@@ -48,9 +41,7 @@ class LoginPage(PageObject):
         """
         self.enter_login(login)
         self.enter_password(password)
-        #self.press_button_login()
-
-
+        self.press_button_login()
 
 
 
