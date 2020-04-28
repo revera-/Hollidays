@@ -27,6 +27,8 @@ class LoginPage(PageObject):
         """
         Заполняем поля логин и пароль, нажимаем кнопку Войти.
         """
+        # поскольку поля ввода еще не отрисовались полностью (не добавлены в DOM)
+        # нужно их подождать
         self.wait_for_element_visibility('input[type="text"]', "Error: Form is not loaded yet")
         self._enter_login(login)
         self._enter_password(password)
