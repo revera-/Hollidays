@@ -1,11 +1,21 @@
 from bok_choy.web_app_test import WebAppTest
-from Hollidays.views import OrderView
-from Hollidays.hollidays.pages import PersonalAccountPage, LoginPage
+from pages import PersonalAccountPage, LoginPage
+
 
 class TestView(WebAppTest):
     """
     Тесты представления пользователя в гриде Заказы
     """
+
+    def setUp(self):
+        super(LoginPage, self).setUp()
+        self.account_page = LoginPage(self.browser)
+
+    def test_page_existence(self):
+        """
+        Проверяем что мы на странице логина
+        """
+        self.account_page.visit()
 
     def test_select_view(self, name = 'По умолчанию'):
         """
@@ -18,7 +28,4 @@ class TestView(WebAppTest):
         :param name: имя представления которое будем искать и открывать
         :return:
         """
-        self.login_page.visit().login('lara@lara.ru', '123123')
-        account_page = PersonalAccountPage(self.browser)
-        account_page.
 

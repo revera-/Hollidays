@@ -1,7 +1,7 @@
 from bok_choy.browser import save_screenshot
 from bok_choy.page_object import PageObject
 
-class OrderView(PageObject):
+class View(PageObject):
     """
     Представление пользователя (заказы)
     """
@@ -27,8 +27,17 @@ class OrderView(PageObject):
     def _edit_view(self):
         pass
 
-    def _select_view(self):
-        pass
+    def _select_view(self, name):
+        self.q(xpath="//div[2]/div/div/div/div/div").first.click()
+        view_path = "//span[contains(.,'" + name + "')]"
+        self.q(xpath=view_path).first.click()
+
 
     def _rename_view(self):
         pass
+
+
+    def _check_view(self, name):
+        view_name = self.q(xpath = '//div[2]/div/div/div/div/div/div').first.text
+        view_name = str(view_name)[2:-2]
+        return view_name
