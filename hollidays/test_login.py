@@ -29,6 +29,7 @@ class TestLogin(WebAppTest):
     def test_select_view(self):
         """
         выбор представления
+        проверка представления по имени
         :return:
         """
         self.login_page.visit().login('lara@lara.ru', '123123')
