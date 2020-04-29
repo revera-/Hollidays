@@ -1,38 +1,40 @@
-from bok_choy.web_app_test import WebAppTest
-from hollidays.pages import PersonalAccountPage, LoginPage
+from hollidays.pages.orders import OrdersPage
+from hollidays.pages.views import View
+from hollidays import BaseWebTest
 
 
-class TestLogin(WebAppTest):
+class TestLogin(BaseWebTest):
     """
     Тест логина в систему
     """
-    def setUp(self):
-        super(TestLogin, self).setUp()
-        self.login_page = LoginPage(self.browser)
+    def test_user_lands_on_account_page(self):
+        """
+        Я, как пользователь из отдела продаж, могу увидеть список заказов
+        на странице заказов после логина
+        """
+        self.login('lara@lara.ru', '123123')
+        orders_page = OrdersPage(self.browser)
+        orders_page.wait_for_page()
+        order_rows = orders_page.q(xpath='//tr')
+        assert len(order_rows) > 0
 
-    def test_page_existence(self):
+    def test_user_see_no_orders(self):
         """
-        Проверяем что мы на странице логина
+        Я, как пользователь из отдела продаж, вижу отсутствие заказов если ...
         """
-        self.login_page.visit()
-
-    def test_login(self):
-        """
-        Проверяем возможность логина в систему
-        """
-        self.login_page.visit().login('lara@lara.ru', '123123')
-        account_page = PersonalAccountPage(self.browser)
-        result = account_page.search_results
-        print(' Проверяем возможность логина в систему test result = '+ str(result))
-
+        # юзер не имеет заказов
+        self.login('lara@lara.ru', '123123')
+        orders_page = OrdersPage(self.browser)
+        orders_page.wait_for_page()
+        order_rows = orders_page.q(xpath='//tr')
+        assert len(order_rows) == 0, "Unexpectedly got some orders"
 
     def test_select_view(self):
         """
         выбор представления
         проверка представления по имени
-        :return:
         """
-        self.login_page.visit().login('lara@lara.ru', '123123')
+        self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
         view_page._select_view('test01')
         result = view_page._check_view('test01')

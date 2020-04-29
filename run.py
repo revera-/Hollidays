@@ -2,7 +2,7 @@ import os
 import argparse
 
 
-CMD = 'python -m unittest -v test_login.py'
+CMD = 'python -m unittest -k test_'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--browser", help="Browser to run tests against")

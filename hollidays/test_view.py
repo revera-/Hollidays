@@ -1,5 +1,5 @@
 from bok_choy.web_app_test import WebAppTest
-from pages import PersonalAccountPage, LoginPage
+from hollidays.pages.login import LoginPage
 
 
 class TestView(WebAppTest):
@@ -8,7 +8,7 @@ class TestView(WebAppTest):
     """
 
     def setUp(self):
-        super(LoginPage, self).setUp()
+        super(TestView, self).setUp()
         self.account_page = LoginPage(self.browser)
 
     def test_page_existence(self):
