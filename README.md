@@ -1,7 +1,7 @@
 # Hollidays
 
 ## Run tests
-Command
+Please run command
 ```bash
 python run.py
 ```
