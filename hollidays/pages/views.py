@@ -29,9 +29,7 @@ class View(PageObject):
         6. Выбрать списка доступных полей поле "Номер накладной BDF"
         7. Дважды кликнуть по полю чтоб оно перешло в список выбранны полей
         8. Нажать кнопку "Сохранить"
-        9. Проверить что пользователю сейчас открыто новое представление с именем new_view_name
-        :param new_view_name:
-        :return:
+        :param new_view_name: имя нового представления
         """
         self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
                       "Select  is not visible to user") #1
@@ -61,11 +59,10 @@ class View(PageObject):
         self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
                       "Select  is not visible to user")  # ожидаем закрытие модалки
 
-        self._check_view(new_view_name) #9
-        # ! Важно: пока не реализовано удаление созданного представления, удалять руками
+      # ! Важно: пока не реализовано удаление созданного представления, удалять руками
 
 
-    def _delite_view(selfб new_view_name):
+    def _delite_view(self, new_view_name):
             pass
 
     def _edit_view(self):
