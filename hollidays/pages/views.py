@@ -1,5 +1,6 @@
 from bok_choy.browser import save_screenshot
 from bok_choy.page_object import PageObject
+import time
 
 
 class View(PageObject):
@@ -10,11 +11,8 @@ class View(PageObject):
     url = 'https://tms-lite-test1.artlogics.ru/grid/orders'
 
     def is_browser_on_page(self):
-        checks = [
-            self.q(css='.container').visible,
-            self.browser.current_url == self.url
-        ]
-        return all(checks)
+        self.wait_for(lambda: self.q(css='.table').visible, "Table with orders was not visible to user")
+        return self.browser.current_url == self.url
 
     def _open_views_order(self):
         pass
@@ -29,6 +27,7 @@ class View(PageObject):
         pass
 
     def _select_view(self, name):
+        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible, "Select is not visible to user")
         self.q(xpath="//div[2]/div/div/div/div/div").first.click()
         view_path = "//span[contains(.,'" + name + "')]"
         self.q(xpath=view_path).first.click()
