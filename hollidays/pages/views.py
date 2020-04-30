@@ -27,7 +27,7 @@ class View(PageObject):
         pass
 
     def _select_view(self, name):
-        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible, "Select is not visible to user")
+        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible, "Select  is not visible to user")
         self.q(xpath="//div[2]/div/div/div/div/div").first.click()
         view_path = "//span[contains(.,'" + name + "')]"
         self.q(xpath=view_path).first.click()
