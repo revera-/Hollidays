@@ -20,11 +20,29 @@ class TestView(BaseWebTest):
         3. проверить чтоу пользователя открылось выбранное представление
         """
         self.login('lara@lara.ru', '123123')
-        print ('login is done')
         view_page = View(self.browser)
-        print("view_page is done")
         view_page._select_view('test01')
-        result = view_page._check_view('test01')
-        print(result)
+        view_page._check_view('test01')
+
+
+    def test_create_new_view(self):
+        """
+        Тест создает и затем удаляет новое представление.
+        1. залогинеться в ситемему
+        2. открыть список представлений
+        3. выбрать последний пункт из списка с именнем "Создать"
+        4. Ввести имя нового представления "New_view"
+        5. Выбрать списка доступных полей поле "Номер накладной BDF"
+        6. Дважды кликнуть по полю чтоб оно перешло в список выбранны полей
+        7. Нажать кнопку "Сохранить"
+
+        :return:
+        """
+
+        self.login('lara@lara.ru', '123123')
+        view_page = View(self.browser)
+        view_page._create_view("New_view")
+
+
 
 
