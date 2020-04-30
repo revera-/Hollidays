@@ -1,6 +1,7 @@
 from bok_choy.browser import save_screenshot
 from bok_choy.page_object import PageObject
 
+
 class View(PageObject):
     """
     Представление пользователя (заказы)
