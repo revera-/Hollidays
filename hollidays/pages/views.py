@@ -46,16 +46,14 @@ class View(PageObject):
         #тут сначала надо поле из списка проскролить и найти и выделить см.дейстиве ниже
         self.q(xpath="//div[34]/div").click()
         # а теперь можно двойным кликом его внести в список выбранных полей
-        word = self.browser.find_element_by_xpath("//div[34]/div")
-        ActionChains(self.browser).double_click(word).perform()
+        element = self.browser.find_element_by_xpath("//div[34]/div")
+        ActionChains(self.browser).double_click(element).perform()
         # конец адского блока блока №7
 
 
         self.wait_for(lambda: self.q(xpath="//div[2]/button[2]").visible,
                       "Save button is not visible to user")  # ожидаем кнопку сохранить
-
         self.q(xpath="//div[2]/button[2]").click() #8
-
         self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
                       "Select  is not visible to user")  # ожидаем закрытие модалки
 
