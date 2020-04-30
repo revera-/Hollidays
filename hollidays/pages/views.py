@@ -21,7 +21,7 @@ class View(PageObject):
     def _create_view(self, new_view_name):
         """
         Метод создает новое личное представление пользователя с мененем 'new_view_name'
-        1. дожидаемся загрузки элемента select
+        1. дожидаемся загрузки элемента select (проверяем возможность выбора представлени из списка)
         2. открываем список с доступными представлениями
         3. выбираем самый последний элемент из списка с названием "+ Создать"
         4. ожидаем что открывается модальное окно и появляются элементы для ввода данных
@@ -57,11 +57,41 @@ class View(PageObject):
         self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
                       "Select  is not visible to user")  # ожидаем закрытие модалки
 
-      # ! Важно: пока не реализовано удаление созданного представления, удалять руками
+        # ! Важно: пока не реализовано удаление созданного представления, удалять руками
 
 
-    def _delite_view(self, new_view_name):
-            pass
+    def _delete_view(self, new_view_name):
+        """
+        1. проверяем возможность выбора представлени из списка
+        2. выбираем представление по имени  new_view_name и оно становится текущим
+        3. кликаем по кнопке "Настроить представление"
+        4. ожидаем загрузки модалки с настройкой текущего представления
+        5. находим кнопку "Удалить" и кликаем по ней
+        6. подверждаем в новой модалке свои действия
+        
+        :param new_view_name: 
+        :return: 
+        """
+        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
+                      "Select  is not visible to user")  # 1
+        self._select_view(new_view_name) #2
+
+        self.q(xpath='//button/i').first.click() #3
+
+        self.wait_for(lambda: self.q(xpath="//div[3]/div/button").visible,
+                      "Delite button is not visible to user")  # 4
+
+        self.q(xpath='//div[3]/div/button').first.click()  # 5
+
+        self.wait_for(lambda: self.q(xpath="//div[5]/div/div[2]/button[2]").visible,
+                      "Delite button is not visible to user")  # 6
+
+        self.q(xpath='//div[5]/div/div[2]/button[2]').first.click()  # 6
+
+
+
+
+
 
     def _edit_view(self):
         pass

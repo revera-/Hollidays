@@ -39,6 +39,16 @@ class TestView(BaseWebTest):
         view_page._create_view("New_view")
         view_page._check_view("New_view")
 
+    def test_detete_new_view(self):
+        """
 
+        :return:
+        """
+        self.login('lara@lara.ru', '123123')
+        view_page = View(self.browser)
+        name_view = "New_view1"
+        view_page._create_view(name_view)
+        view_page._check_view(name_view)
+        view_page._delete_view(name_view)
 
 
