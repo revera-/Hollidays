@@ -37,7 +37,7 @@ class View(PageObject):
         self.q(xpath="//span[contains(.,'Создать')]").first.click()  #3
         self.wait_for(lambda: self.q(xpath="//form/div/div/input").visible,
                       "Input new_name_view is not visible to user")  # 4
-        self.q(xpath ="//form/div/div/input").fill(new_view_name) #5
+        self.q(xpath ="//form//input").fill(new_view_name) #5
 
         self.wait_for(lambda: self.q(xpath="// div[34]/div").visible,
                       "Номер накладной BDF  is not visible to user")  #6
@@ -68,9 +68,9 @@ class View(PageObject):
         4. ожидаем загрузки модалки с настройкой текущего представления
         5. находим кнопку "Удалить" и кликаем по ней
         6. подверждаем в новой модалке свои действия
-        
-        :param new_view_name: 
-        :return: 
+
+        :param new_view_name:
+        :return:
         """
         self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
                       "Select  is not visible to user")  # 1
@@ -88,11 +88,6 @@ class View(PageObject):
 
         self.q(xpath='//div[5]/div/div[2]/button[2]').first.click()  # 6
 
-
-
-
-
-
     def _edit_view(self):
         pass
 
@@ -102,10 +97,8 @@ class View(PageObject):
         view_path = "//span[contains(.,'" + name + "')]"
         self.q(xpath=view_path).first.click()
 
-
     def _rename_view(self):
         pass
-
 
     def _check_view(self, name):
         view_name = self.q(xpath = '//div[2]/div/div/div/div/div/div').first.text
