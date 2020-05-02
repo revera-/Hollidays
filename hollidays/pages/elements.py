@@ -60,31 +60,3 @@ class InputElement(BaseElement):
         """
         return self.get_page(obj).q(css=self.locator).attrs("value")[0]
         # return self.get_page(obj).q(css=self.locator).first.attrs("value")[0]
-
-
-class DropdownElement(BaseElement):
-    """
-    Select element descriptor.
-    """
-    def __set__(self, obj, value):
-        """
-        Sets the value.
-        """
-        view_selector_map = {
-            'first': '.item:first-child',
-            'last': '.item:last-child',
-        }
-        element = self.get_page(obj).q(css=self.locator)[0]
-        parent_locator = obj.locator
-        elem_selector = f'{parent_locator} {view_selector_map[value]}'
-        found = element.find_element_by_css_selector(elem_selector)
-        print(found)
-        found.click()
-
-    def __get__(self, obj, owner):
-        """
-        Gets values for all selected options.
-        """
-        element = self.get_page(obj).q(css=self.locator)[0]
-        # select = Select(element)
-        # return [i.get_attribute("value") for i in select.all_selected_options]
