@@ -31,9 +31,15 @@ class View(PageObject):
         8. Нажать кнопку "Сохранить"
         :param new_view_name: имя нового представления
         """
-        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
+        #self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
+        #              "Select  is not visible to user") #1
+        self.wait_for(lambda: self.q(css=".fluid >.text").visible,
                       "Select  is not visible to user") #1
-        self.q(xpath="//div[2]/div/div/div/div/div").first.click()  #2
+
+        #self.q(xpath="//div[2]/div/div/div/div/div").first.click()  #2
+        self.q(css=".fluid >.text").first.click()
+
+
         self.q(xpath="//span[contains(.,'Создать')]").first.click()  #3
         self.wait_for(lambda: self.q(xpath="//form/div/div/input").visible,
                       "Input new_name_view is not visible to user")  # 4
@@ -47,18 +53,16 @@ class View(PageObject):
         self.q(xpath="//div[34]/div").click()
         # а теперь можно двойным кликом его внести в список выбранных полей
         element = self.browser.find_element_by_xpath("//div[34]/div")
+
         ActionChains(self.browser).double_click(element).perform()
         # конец адского блока блока №7
-
 
         self.wait_for(lambda: self.q(xpath="//div[2]/button[2]").visible,
                       "Save button is not visible to user")  # ожидаем кнопку сохранить
         self.q(xpath="//div[2]/button[2]").click() #8
         self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
                       "Select  is not visible to user")  # ожидаем закрытие модалки
-
         # ! Важно: пока не реализовано удаление созданного представления, удалять руками
-
 
     def _delete_view(self, new_view_name):
         """
@@ -88,11 +92,6 @@ class View(PageObject):
 
         self.q(xpath='//div[5]/div/div[2]/button[2]').first.click()  # 6
 
-
-
-
-
-
     def _edit_view(self):
         pass
 
@@ -102,12 +101,11 @@ class View(PageObject):
         view_path = "//span[contains(.,'" + name + "')]"
         self.q(xpath=view_path).first.click()
 
-
     def _rename_view(self):
         pass
 
-
-    def _check_view(self, name):
-        view_name = self.q(xpath = '//div[2]/div/div/div/div/div/div').first.text
+    def _get_current_view_name(self):
+        #view_name = self.q(xpath = '//div[2]/div/div/div/div/div/div').first.text
+        view_name = self.q(xpath = 'css = ".fluid >.text"').first.text
         view_name = str(view_name)[2:-2]
         return view_name

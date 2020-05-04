@@ -22,7 +22,7 @@ class TestView(BaseWebTest):
         self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
         view_page._select_view('test01')
-        view_page._check_view('test01')
+        view_page._get_current_view_name('test01')
 
 
     def test_create_new_view(self):
@@ -34,10 +34,11 @@ class TestView(BaseWebTest):
         # ! Важно: пока не реализовано удаление созданного представления, удалять руками
         """
 
+        new_view_name = "New_view"
         self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
-        view_page._create_view("New_view")
-        view_page._check_view("New_view")
+        view_page._create_view(new_view_name)
+        assert view_page._get_current_view_name() == new_view_name
 
     def test_detete_new_view(self):
         """
@@ -46,9 +47,11 @@ class TestView(BaseWebTest):
         """
         self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
-        name_view = "New_view1"
-        view_page._create_view(name_view)
-        view_page._check_view(name_view)
-        view_page._delete_view(name_view)
+        new_view_name = "New_view1"
+        view_page._create_view(new_view_name)
+        assert view_page._get_current_view_name() == new_view_name
+        #view_page._get_current_view_name(name_view)
+        view_page._delete_view(new_view_name)
+        #добавить проверку что в списке нет представления
 
 
