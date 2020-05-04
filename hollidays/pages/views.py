@@ -79,23 +79,23 @@ class View(PageObject):
         self.wait_for(lambda: self.q(css = ".fluid >.text").visible,
                       "Select  is not visible to user")  # 1
         self._select_view(new_view_name) #2
-
         self.q(xpath='//button/i').first.click() #3
-
         self.wait_for(lambda: self.q(xpath="//div[3]/div/button").visible,
                       "Delite button is not visible to user")  # 4
-
         self.q(xpath='//div[3]/div/button').first.click()  # 5
-
         self.wait_for(lambda: self.q(xpath="//div[5]/div/div[2]/button[2]").visible,
                       "Delite button is not visible to user")  # 6
-
         self.q(xpath='//div[5]/div/div[2]/button[2]').first.click()  # 6
 
     def _edit_view(self):
         pass
 
     def _select_view(self, name):
+        """
+        Метод производит поиск и выбор представления из списка доступных.
+        :param name:
+        :return: True
+        """
         self.wait_for(lambda: self.q(css = ".fluid >.text").visible, "Select  is not visible to user")
         self.q(css = ".fluid >.text").first.click()
         view_path = "//span[contains(.,'" + name + "')]"
@@ -108,3 +108,19 @@ class View(PageObject):
         view_name = self.q(css = ".fluid >.text").first.text
         view_name = str(view_name)[2:-2]
         return view_name
+
+    def _find_view_name_in_order(self, view_name):
+        """
+        Метод производит поиск среди существующих представлений по заданному имени.
+        !!! Найденное представление НЕ выбирает!!!
+        1. Дожидаемся видимости жлемента дропдаун со списком представлений
+        2. кликаем по нему для открытия списка
+        3. дожидаемся отисовки списка
+        4. ищем представление с заданным именем
+        :return: true если представление нашли
+        """
+        self.wait_for(lambda: self.q(css=".fluid >.text").visible, "Select  is not visible to user")
+        self.q(css=".fluid >.text").first.click()
+        view_path = "//span[contains(.,'" + view_name + "')]"
+        result =  self.q(xpath=view_path) == view_name
+        return result
