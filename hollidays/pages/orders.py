@@ -14,8 +14,8 @@ class DropdownElement(BaseElement):
     """
     OPTION_SELECTOR = '.item'
     view_selector_map = {
-        'first': f'{OPTION_SELECTOR}:first-child',
-        'last': f'{OPTION_SELECTOR}:last-child',
+        DEFAULT: f'{OPTION_SELECTOR}:first-child',
+        CREATE: f'{OPTION_SELECTOR}:last-child',
     }
 
     def __set__(self, container, value):
