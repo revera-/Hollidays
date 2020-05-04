@@ -1,6 +1,6 @@
 from bok_choy.web_app_test import WebAppTest
 from hollidays.pages.login import LoginPage
-from hollidays.pages.orders import OrdersPage
+from hollidays.pages.orders import OrdersPage, CREATE
 from hollidays.pages.views import View
 from hollidays import BaseWebTest
 
@@ -22,7 +22,7 @@ class TestView(BaseWebTest):
         self.login('lara@lara.ru', '123123')
         view_page = OrdersPage(self.browser)
         assert view_page.is_browser_on_page()
-        view_page.dropdown.select('last')  # выбираем Create
+        view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
 
     def test_create_new_view(self):
