@@ -6,5 +6,4 @@ class BaseWebTest(WebAppTest):
     def login(self, login, password):
         login_page = LoginPage(self.browser)
         login_page.visit()
-        login_page.visit()
         login_page.login(login, password)
