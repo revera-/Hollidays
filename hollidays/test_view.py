@@ -10,6 +10,9 @@ class TestView(BaseWebTest):
     """
     Тесты представления пользователя в гриде Заказы
     """
+    def setUp(self):
+        super(TestView, self).setUp()
+        self.login('lara@lara.ru', '123123')
 
     def test_select_view(self):
         """
@@ -20,11 +23,25 @@ class TestView(BaseWebTest):
         3. выбрать представление по имени
         3. проверить что у пользователя открылось выбранное представление
         """
-        self.login('lara@lara.ru', '123123')
+        # self.login('lara@lara.ru', '123123')
         view_page = OrdersPage(self.browser)
         assert view_page.is_browser_on_page()
         view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
+
+    # def test_create_view(self):
+    #     """
+    #     Я как пользователь могу выбрать созждание нового представления из выпадающего списка и увидеть модальное окно
+    #     с полями для создания представления.
+    #     2. открыть список представлений
+    #     3. выбрать представление по имени
+    #     3. проверить что у пользователя открылось модальное окно для создания представления
+    #     """
+    #     view_page = OrdersPage(self.browser)
+    #     assert view_page.is_browser_on_page()
+    #     view_page.dropdown.select(CREATE)  # выбираем Create
+    #     assert view_page.modal_is_visible()
+    #     assert view_page.modal.input_visible()
 
     def test_create_new_view(self):
         """
@@ -35,7 +52,7 @@ class TestView(BaseWebTest):
         # ! Важно: пока не реализовано удаление созданного представления, удалять руками
         """
         new_view_name = "New_view " + (datetime.datetime.now()).strftime("%m-%d-%H:%M:%S")
-        self.login('lara@lara.ru', '123123')
+        # self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
         view_page._create_view(new_view_name)
         assert view_page._get_current_view_name() == new_view_name
@@ -46,7 +63,7 @@ class TestView(BaseWebTest):
         а затем удаляет новое представление с имененм new_view_name
         :return:
         """
-        self.login('lara@lara.ru', '123123')
+        # self.login('lara@lara.ru', '123123')
         view_page: View = View(self.browser)
         new_view_name = "New_view " + (datetime.datetime.now()).strftime("%m-%d-%H:%M:%S")
         view_page._create_view(new_view_name)

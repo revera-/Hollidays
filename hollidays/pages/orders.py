@@ -23,13 +23,13 @@ class DropdownElement(BaseElement):
         Choose the option.
         """
         page = self.get_page(container)
-        container.click()
+        container.click()  # раскрыть dropdown
         option_locator = self.view_selector_map.get(value, f'{self.OPTION_SELECTOR}:nth-child({value})')
         full_locator = f'{self.locator} {option_locator}'
-        page.wait_for_element_visibility(
+        page.wait_for_element_visibility(  # wait for item in dropdown visible
             full_locator, "Dropdown option was not visible"
         )
-        option = page.q(css=full_locator)
+        option = page.q(css=full_locator)  # div with option selected
         option.click()
 
 
@@ -44,6 +44,27 @@ class SelectView(BaseContainer):
 
 class Modal(BaseContainer):
     locator = '#fieldModal.representation-modal'
+
+
+# class OrderStatusFilter(BaseContainer):
+#     locator = '.loc'
+#
+#     in
+#
+#     def
+#
+# class ClientsFilter(BaseContainer):
+#     locator = '.loc'
+#
+#
+# class Table(BaseContainer):
+#     locator = '.table'
+#
+#     def __init__(self, *args, **kwargs):
+#         super(Table, self).__init__(*args, **kwargs)
+#         self.order_status = OrderStatusFilter(self.page)
+#         self.client = ClientsFilter(self.page)
+#         ...
 
 
 class OrdersPage(BasePage):

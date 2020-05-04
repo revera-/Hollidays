@@ -104,7 +104,6 @@ class View(PageObject):
     def _rename_view(self):
         pass
 
-
     def _get_current_view_name(self):
         self.wait_for(lambda: self.q(css=".fluid >.text").visible, "Select  is not visible to user")
         view_name = self.q(css = ".fluid >.text").first.text
