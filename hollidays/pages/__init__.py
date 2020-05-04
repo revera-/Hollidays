@@ -102,7 +102,9 @@ class BasePage(PageObject):
         """
         Construct url.
         """
-        url = urljoin(self.kwargs.get('base_url', os.environ['TESTS_BASE_URL']), self.path)
+        #заменила пока не работаю с run.py
+        url = urljoin(self.kwargs.get('base_url', 'https://tms-lite-test1.artlogics.ru/'), self.path)
+        #url = urljoin(self.kwargs.get('base_url', os.environ['TESTS_BASE_URL']), self.path)
         return url
 
     @property

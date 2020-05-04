@@ -42,8 +42,7 @@ class SelectView(BaseContainer):
         save_screenshot(self.page.browser, 'create')
 
 
-class Modal(BaseContainer):
-    locator = '#fieldModal.representation-modal'
+
 
 
 # class OrderStatusFilter(BaseContainer):
@@ -71,6 +70,7 @@ class OrdersPage(BasePage):
     """
     Личный кабинет пользователя
     """
+    dropdown: SelectView
     path = '/grid/orders'
 
     def __init__(self, *args, **kwargs):

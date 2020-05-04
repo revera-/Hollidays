@@ -29,6 +29,9 @@ class LoginForm(BaseContainer):
         self.pass_input = password
         self.find_nested_by_css(self.selectors['submit_btn']).first.click()
 
+class Modal(BaseContainer):
+    locator = '#fieldModal.representation-modal'
+
 
 class LoginPage(BasePage):
     path = '/login'
