@@ -7,4 +7,4 @@ class BaseWebTest(WebAppTest):
         login_page = LoginPage(self.browser)
         login_page.visit()
         login_page.visit()
-        login_page.login('lara@lara.ru', '123123')
+        login_page.login(login, password)

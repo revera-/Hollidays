@@ -28,14 +28,3 @@ class TestLogin(BaseWebTest):
         orders_page.wait_for_page()
         order_rows = orders_page.q(xpath='//tr')
         assert len(order_rows) == 0, "Unexpectedly got some orders"
-
-    def test_select_view(self):
-        """
-        выбор представления
-        проверка представления по имени
-        """
-        self.login('lara@lara.ru', '123123')
-        view_page = View(self.browser)
-        view_page._select_view('test01')
-        result = view_page._check_view('test01')
-        print(result)
