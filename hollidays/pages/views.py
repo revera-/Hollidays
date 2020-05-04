@@ -76,7 +76,7 @@ class View(PageObject):
         :param new_view_name: 
         :return: 
         """
-        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible,
+        self.wait_for(lambda: self.q(css = ".fluid >.text").visible,
                       "Select  is not visible to user")  # 1
         self._select_view(new_view_name) #2
 
@@ -96,8 +96,8 @@ class View(PageObject):
         pass
 
     def _select_view(self, name):
-        self.wait_for(lambda: self.q(xpath="//div[2]/div/div/div/div/div").visible, "Select  is not visible to user")
-        self.q(xpath="//div[2]/div/div/div/div/div").first.click()
+        self.wait_for(lambda: self.q(css = ".fluid >.text").visible, "Select  is not visible to user")
+        self.q(css = ".fluid >.text").first.click()
         view_path = "//span[contains(.,'" + name + "')]"
         self.q(xpath=view_path).first.click()
 
@@ -105,7 +105,6 @@ class View(PageObject):
         pass
 
     def _get_current_view_name(self):
-        #view_name = self.q(xpath = '//div[2]/div/div/div/div/div/div').first.text
-        view_name = self.q(xpath = 'css = ".fluid >.text"').first.text
+        view_name = self.q(css = ".fluid >.text").first.text
         view_name = str(view_name)[2:-2]
         return view_name
