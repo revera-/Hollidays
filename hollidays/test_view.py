@@ -3,6 +3,7 @@ from hollidays.pages.login import LoginPage
 from hollidays.pages.orders import OrdersPage
 from hollidays.pages.views import View
 from hollidays import BaseWebTest
+import datetime
 
 
 class TestView(BaseWebTest):
@@ -21,21 +22,20 @@ class TestView(BaseWebTest):
         """
         self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
-        view_name = 'test01'
+        view_name = 'По умолчанию'
         view_page._select_view(view_name)
         assert view_page._get_current_view_name() == view_name
 
 
     def test_create_new_view(self):
         """
-        Тест создает и затем удаляет новое представление.
+        Тест создает новое представление.
         1. залогинеться в ситемему
         2. Создать новое представление
         3. проверить что пользователь находится в новом представлении
         # ! Важно: пока не реализовано удаление созданного представления, удалять руками
         """
-
-        new_view_name = "New_view"
+        new_view_name = "New_view " + (datetime.datetime.now()).strftime("%m-%d-%H:%M:%S")
         self.login('lara@lara.ru', '123123')
         view_page = View(self.browser)
         view_page._create_view(new_view_name)
@@ -49,7 +49,7 @@ class TestView(BaseWebTest):
         """
         self.login('lara@lara.ru', '123123')
         view_page: View = View(self.browser)
-        new_view_name = "New_view1"
+        new_view_name = "New_view " + (datetime.datetime.now()).strftime("%m-%d-%H:%M:%S")
         view_page._create_view(new_view_name)
         #проверка: созданное представлени сейчас активно
         assert view_page._get_current_view_name() == new_view_name

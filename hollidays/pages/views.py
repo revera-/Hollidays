@@ -105,6 +105,7 @@ class View(PageObject):
         pass
 
     def _get_current_view_name(self):
+        self.wait_for(lambda: self.q(css=".fluid >.text").visible, "Select  is not visible to user")
         view_name = self.q(css = ".fluid >.text").first.text
         view_name = str(view_name)[2:-2]
         return view_name
