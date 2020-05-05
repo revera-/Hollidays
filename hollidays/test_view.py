@@ -69,14 +69,17 @@ class TestView(BaseWebTest):
         3. проверить что пользователь находится в новом представлении
         # ! Важно: пока не реализовано удаление созданного представления, удалять руками
         """
-        new_view_name = "New_view " + (datetime.datetime.now()).strftime("%m-%d-%H:%M:%S")
+        name = "New_view " + (datetime.datetime.now()).strftime("%m-%d-%H:%M:%S")
         view_page = OrdersPage(self.browser)
         assert view_page.is_browser_on_page()
         view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
+        view_page.modal.input_view_name()
 
 
-        #assert view_page._get_current_view_name() == new_view_name
+
+
+        #assert view_page._get_current_view_name() == name
 
     def test_detete_new_view(self):
         """

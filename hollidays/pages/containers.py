@@ -1,6 +1,8 @@
 """
 Containers library.
 """
+from datetime import datetime
+
 from bok_choy.browser import save_screenshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -118,6 +120,15 @@ class LoginForm(BaseContainer):
 
 class Modal(BaseContainer):
     locator = '#fieldModal.representation-modal'
+    name = InputElement(locator='input[name="name"]')
+    #сюда добавить элементы модалки
+
+
+    def input_view_name(self):
+        new_name = "New_view " + (datetime.now()).strftime("%m-%d-%H:%M:%S")
+        self.name = new_name
+
+
 
 
 class SelectView(BaseContainer):
