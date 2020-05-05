@@ -6,6 +6,10 @@ from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.support.select import Select
 
 
+DEFAULT = 'first'
+PLANNED_DATES = 2
+CREATE = 'last'
+
 class BaseElement:
     """
     Base class for all elements.
@@ -21,6 +25,31 @@ class BaseElement:
         Returns page instance for the given object.
         """
         return getattr(obj, 'page', obj)
+
+
+class DropdownElement(BaseElement):
+    """
+    Select element descriptor.
+    """
+    OPTION_SELECTOR = '.item'
+    view_selector_map = {
+        DEFAULT: f'{OPTION_SELECTOR}:first-child',
+        CREATE: f'{OPTION_SELECTOR}:last-child',
+    }
+
+    def __set__(self, container, value):
+        """
+        Choose the option.
+        """
+        page = self.get_page(container)
+        container.click()  # раскрыть dropdown
+        option_locator = self.view_selector_map.get(value, f'{self.OPTION_SELECTOR}:nth-child({value})')
+        full_locator = f'{self.locator} {option_locator}'
+        page.wait_for_element_visibility(  # wait for item in dropdown visible
+            full_locator, "Dropdown option was not visible"
+        )
+        option = page.q(css=full_locator)  # div with option selected
+        option.click()
 
 
 class InputElement(BaseElement):
