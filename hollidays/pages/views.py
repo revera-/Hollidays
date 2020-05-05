@@ -53,7 +53,6 @@ class View(PageObject):
         self.q(xpath="//div[34]/div").click()
         # а теперь можно двойным кликом его внести в список выбранных полей
         element = self.browser.find_element_by_xpath("//div[34]/div")
-
         ActionChains(self.browser).double_click(element).perform()
         # конец адского блока блока №7
 

@@ -1,9 +1,10 @@
 """
 Containers library.
 """
+import time
 from datetime import datetime
-
 from bok_choy.browser import save_screenshot
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -121,6 +122,7 @@ class LoginForm(BaseContainer):
 class ViewModal(BaseContainer):
     locator = '#fieldModal.representation-modal'
     name = InputElement(locator='input[name="name"]')
+    #search_fild = InputElement(locator='input[type="text"]').nth(2)
     #сюда добавить элементы модалки
 
     def input_view_name(self):
@@ -128,14 +130,21 @@ class ViewModal(BaseContainer):
         self.name = new_name
         return new_name
 
+    def find_and_add_fild(self, fild_name):
+        # не работает двойной клик
+        search_fild = self.page.q(css='input[type="text"]').nth(2)
+        search_fild.fill(fild_name)
+        self.page.q(css='.label').first.click()
+        element = self.page.q(css='.label').first
+        time.sleep(5)
+        #ActionChains(self.page.browser).double_click(element).perform()
+        #search_fild.fill('') #очищаем поле поиска
+
 
     def submit(self):
         self.wait_for_element_clickable('button.ui.button.blue', 'Button is not clickable')
-        id = self.find_nested_by_css('button.ui.button.blue')
-        print(id)
         self.find_nested_by_css('button.ui.button.blue').first.click()
-        print('click')
-
+        time.sleep(5)
 
 
 class SelectView(BaseContainer):

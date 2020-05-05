@@ -62,7 +62,7 @@ class TestView(BaseWebTest):
 
     def test_create_new_view(self):
         """
-        Делаю новый тест на основе новой архитектуре классов
+        Делаю новый тест на основе новой архитектуры классов
         Тест создает новое представление с уникальным именем.
         1. залогинеться в ситемему.
         2. Нажать на название текущего представления (левая часть хедора страницы)
@@ -83,13 +83,10 @@ class TestView(BaseWebTest):
         assert view_page.modal_is_visible()
         new_name = view_page.modal.input_view_name() #вводим новое имя
         print(new_name)
-        view_page.modal.submit()
+        view_page.modal.find_and_add_fild('Номер накладной BDF')
+        view_page.modal.submit() #7
+        #добавить проверку: открыто новое представление №8
 
-
-
-
-
-        #assert view_page._get_current_view_name() == name
 
     def test_detete_new_view(self):
         """
