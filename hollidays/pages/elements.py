@@ -89,3 +89,4 @@ class InputElement(BaseElement):
         """
         return self.get_page(obj).q(css=self.locator).attrs("value")[0]
         # return self.get_page(obj).q(css=self.locator).first.attrs("value")[0]
+

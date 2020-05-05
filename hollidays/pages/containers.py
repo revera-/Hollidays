@@ -118,16 +118,23 @@ class LoginForm(BaseContainer):
         self.find_nested_by_css(self.selectors['submit_btn']).first.click()
 
 
-class Modal(BaseContainer):
+class ViewModal(BaseContainer):
     locator = '#fieldModal.representation-modal'
     name = InputElement(locator='input[name="name"]')
     #сюда добавить элементы модалки
 
-
     def input_view_name(self):
         new_name = "New_view " + (datetime.now()).strftime("%m-%d-%H:%M:%S")
         self.name = new_name
+        return new_name
 
+
+    def submit(self):
+        self.wait_for_element_clickable('button.ui.button.blue', 'Button is not clickable')
+        id = self.find_nested_by_css('button.ui.button.blue')
+        print(id)
+        self.find_nested_by_css('button.ui.button.blue').first.click()
+        print('click')
 
 
 

@@ -3,7 +3,7 @@ Pages library.
 """
 from urllib.parse import urljoin
 from bok_choy.page_object import PageObject
-from hollidays.pages.containers import SelectView, LoginForm, Modal
+from hollidays.pages.containers import SelectView, LoginForm, ViewModal
 
 
 class BasePage(PageObject):
@@ -80,7 +80,7 @@ class OrdersPage(BasePage):
     def __init__(self, *args, **kwargs):
         super(OrdersPage, self).__init__(*args, **kwargs)
         self.dropdown = SelectView(self)
-        self.modal = Modal(self)
+        self.modal = ViewModal(self)
 
     def is_browser_on_page(self):
         self.wait_for(lambda: self.q(css='.table').visible, "Table with orders was not visible to user")
