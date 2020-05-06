@@ -1,0 +1,28 @@
+BaseWebTest (webAppTest)
+|
++---TestLogin
+|
++---TestView
+
+
+BasePage (PageObject)
+|
++---OrdersPage
+|
++---LoginPage
+
+
+BaseContainer
+|
++---LoginForm
+|
++---SelectView
+|
++---Modal
+
+
+BaseElement
+|
++---InputElement
+|
++---DropdownElement

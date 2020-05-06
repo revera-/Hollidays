@@ -10,7 +10,7 @@ parser.add_argument("--browser", help="Browser to run tests against")
 parser.add_argument("--test", help="Test to run")
 args = parser.parse_args()
 
-# CMD = f'python -m unittest -k test_ {args.test if args.test else ""}'
+#CMD = f'python -m unittest -k test_ {args.test if args.test else ""}'
 CMD = f'python -m unittest -v test_login.py {args.test if args.test else ""}'
 
 os.environ.setdefault('SCREENSHOT_DIR', './reports/screenshots')

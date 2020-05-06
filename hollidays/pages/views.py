@@ -43,7 +43,7 @@ class View(PageObject):
         self.q(xpath="//span[contains(.,'Создать')]").first.click()  #3
         self.wait_for(lambda: self.q(xpath="//form/div/div/input").visible,
                       "Input new_name_view is not visible to user")  # 4
-        self.q(xpath ="//form//input").fill(new_view_name) #5
+        self.q(xpath ="//form/div/div/input").fill(new_view_name) #5
 
         self.wait_for(lambda: self.q(xpath="// div[34]/div").visible,
                       "Номер накладной BDF  is not visible to user")  #6
@@ -53,7 +53,6 @@ class View(PageObject):
         self.q(xpath="//div[34]/div").click()
         # а теперь можно двойным кликом его внести в список выбранных полей
         element = self.browser.find_element_by_xpath("//div[34]/div")
-
         ActionChains(self.browser).double_click(element).perform()
         # конец адского блока блока №7
 
