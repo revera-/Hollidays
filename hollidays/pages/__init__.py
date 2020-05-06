@@ -1,3 +1,3 @@
-from .elements import InputElement, BaseElement
+from hollidays.pages.Base.elements import InputElement, BaseElement
 
 

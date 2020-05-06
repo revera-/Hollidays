@@ -4,12 +4,11 @@ Containers library.
 import time
 from datetime import datetime
 from bok_choy.browser import save_screenshot
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from hollidays.pages import BaseElement
-from hollidays.pages.elements import InputElement, DropdownElement
+from hollidays.pages.Base.elements import InputElement, DropdownElement, FieldElement
 
 
 class BaseContainer:
@@ -120,31 +119,31 @@ class LoginForm(BaseContainer):
 
 
 class ViewModal(BaseContainer):
+    """
+    Модалка создания/редактирования представления
+    """
     locator = '#fieldModal.representation-modal'
     name = InputElement(locator='input[name="name"]')
-    #search_fild = InputElement(locator='input[type="text"]').nth(2)
+    new_field = FieldElement(locator='.label')
+    search_field = InputElement(locator='input[placeholder="Поиск поля"]') #понимаю что не лучший селектор, но др варианты возвращают большой массив
     #сюда добавить элементы модалки
 
-    def input_view_name(self):
+    def set_view_name(self):
+        # генерирует новое имя и заполняет поле "Наименование"
         new_name = "New_view " + (datetime.now()).strftime("%m-%d-%H:%M:%S")
         self.name = new_name
         return new_name
 
-    def find_and_add_fild(self, fild_name):
-        # не работает двойной клик
-        search_fild = self.page.q(css='input[type="text"]').nth(2)
-        search_fild.fill(fild_name)
-        self.page.q(css='.label').first.click()
-        element = self.page.q(css='.label').first
-        time.sleep(5)
-        #ActionChains(self.page.browser).double_click(element).perform()
-        #search_fild.fill('') #очищаем поле поиска
-
+    def add_field(self, field_name):
+        #находит и добавляет новое поле в блок "Выбранные поля"
+        self.search_field = field_name
+        self.new_field = field_name
 
     def submit(self):
+        #Нажимаем кнопку Сохранить
         self.wait_for_element_clickable('button.ui.button.blue', 'Button is not clickable')
         self.find_nested_by_css('button.ui.button.blue').first.click()
-        time.sleep(5)
+
 
 
 class SelectView(BaseContainer):

@@ -1,9 +1,3 @@
-from hollidays.pages.containers import BaseContainer
-from hollidays.pages.pages import BasePage
-from hollidays.pages.elements import BaseElement
-from bok_choy.browser import save_screenshot
-
-
 # class OrderStatusFilter(BaseContainer):
 #     locator = '.loc'
 #

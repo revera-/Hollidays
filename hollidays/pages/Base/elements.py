@@ -1,7 +1,11 @@
 """
 Elements library.
 """
+import time
+
 from bok_choy.promise import EmptyPromise
+from numpy.lib.user_array import container
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.support.select import Select
 
@@ -90,3 +94,14 @@ class InputElement(BaseElement):
         return self.get_page(obj).q(css=self.locator).attrs("value")[0]
         # return self.get_page(obj).q(css=self.locator).first.attrs("value")[0]
 
+
+class FieldElement(BaseElement):
+    """
+    Набор полей для создания нового представления.
+    Располагается в правой части модального окна при создании нового представления
+    """
+    def __set__(self, obj, field_name):
+        self.get_page(obj).q(css='.label').first.click()
+        element = self.get_page(obj).q(css='.label')
+        ActionChains(self.get_page(obj).browser).double_click(element).perform()
+        # пока не победила 2й клик: AttributeError: move_to requires a WebElement

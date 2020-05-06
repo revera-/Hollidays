@@ -3,7 +3,7 @@ Pages library.
 """
 from urllib.parse import urljoin
 from bok_choy.page_object import PageObject
-from hollidays.pages.containers import SelectView, LoginForm, ViewModal
+from hollidays.pages.Base.containers import SelectView, LoginForm, ViewModal
 
 
 class BasePage(PageObject):
