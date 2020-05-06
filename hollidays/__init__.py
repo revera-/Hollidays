@@ -1,5 +1,5 @@
 from bok_choy.web_app_test import WebAppTest
-from hollidays.pages.pages import LoginPage
+from hollidays.pages.login import LoginPage
 
 
 class BaseWebTest(WebAppTest):
