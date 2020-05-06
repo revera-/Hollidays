@@ -79,13 +79,9 @@ class InputElement(BaseElement):
             else:
                 element.fill(value)
 
-            if len(element.attrs("value")):
-                return element.attrs("value")[0] == value
-            else:
-                print(self.locator, element.attrs("value"))
-                return False
+            return element.attrs("value")[0] == value
 
-        # ждем пока не выполнится функция
+        # ждем пока не выполнится функция˚
         # промис ожидает, что функция вернет какое-то значение
         EmptyPromise(execute, "InputElement value is updated.").fulfill()
 
