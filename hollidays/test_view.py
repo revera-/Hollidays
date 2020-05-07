@@ -1,11 +1,10 @@
 import time
 
-from hollidays.pages.Base.elements import CREATE
-from hollidays.pages.pages import OrdersPage
+from hollidays.pages.base.elements import CREATE
+from hollidays.pages.orders import OrdersPage
 from hollidays.pages.views import View
 from hollidays import BaseWebTest
 import datetime
-
 
 
 class TestView(BaseWebTest):
@@ -16,7 +15,7 @@ class TestView(BaseWebTest):
         super(TestView, self).setUp()
         self.login('lara@lara.ru', '123123')
 
-    def test_select_view(self):
+    def test_user_can_select_view(self):
         """
         выбор представления
         проверка представления по имени
@@ -27,7 +26,7 @@ class TestView(BaseWebTest):
         """
         # self.login('lara@lara.ru', '123123')
         view_page = OrdersPage(self.browser)
-        assert view_page.is_browser_on_page()
+        view_page.wait_for_page()
         view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
 
@@ -48,14 +47,13 @@ class TestView(BaseWebTest):
         # ! Важно: пока не реализовано удаление созданного представления, удалять руками
         """
         view_page = OrdersPage(self.browser)
-        assert view_page.is_browser_on_page()
+        view_page.wait_for_page()
         view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
-        new_name = view_page.modal.set_view_name() #вводим новое имя
+        view_page.modal.set_view_name()  # вводим новое имя
         view_page.modal.add_field('Номер накладной BDF')
         #view_page.modal.submit() #7
         #assert view_page._get_current_view_name() == new_name
-
 
     def test_detete_new_view(self):
         """
@@ -72,5 +70,3 @@ class TestView(BaseWebTest):
         view_page._delete_view(new_view_name)
         # проверка: в списке нет представления созданного ранее
         assert not(view_page._find_view_name_in_order(new_view_name))
-
-

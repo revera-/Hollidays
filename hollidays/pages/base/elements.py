@@ -1,18 +1,16 @@
 """
 Elements library.
 """
-import time
-
 from bok_choy.promise import EmptyPromise
-from numpy.lib.user_array import container
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.support.select import Select
 
 
-DEFAULT = 'first'
+DEFAULT = 1
 PLANNED_DATES = 2
 CREATE = 'last'
+
 
 class BaseElement:
     """
@@ -37,7 +35,6 @@ class DropdownElement(BaseElement):
     """
     OPTION_SELECTOR = '.item'
     view_selector_map = {
-        DEFAULT: f'{OPTION_SELECTOR}:first-child',
         CREATE: f'{OPTION_SELECTOR}:last-child',
     }
 
@@ -66,6 +63,7 @@ class InputElement(BaseElement):
         """
         # ищем на странице свой локатор
         element = self.get_page(obj).q(css=self.locator)
+        element.click()  # click before we type smth
 
         def execute():
             """
@@ -101,7 +99,8 @@ class FieldElement(BaseElement):
     Располагается в правой части модального окна при создании нового представления
     """
     def __set__(self, obj, field_name):
-        self.get_page(obj).q(css='.label').first.click()
-        element = self.get_page(obj).q(css='.label')
-        ActionChains(self.get_page(obj).browser).double_click(element).perform()
-        # пока не победила 2й клик: AttributeError: move_to requires a WebElement
+        page = self.get_page(obj)
+        browser = page.browser
+        # важно! source_element должен быть WebElement, а не BrowserQuery!
+        source_element = browser.find_element_by_xpath(self.locator)
+        ActionChains(browser).double_click(source_element).perform()
