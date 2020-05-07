@@ -1,13 +1,14 @@
 """
 Containers library.
 """
+import time
 from datetime import datetime
 from bok_choy.browser import save_screenshot
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 
-from hollidays.pages.base.elements import InputElement, DropdownElement, FieldElement
+from hollidays.pages import BaseElement
+from hollidays.pages.Base.elements import InputElement, DropdownElement, FieldElement
 
 
 class BaseContainer:
@@ -71,6 +72,8 @@ class BaseContainer:
         )
 
     def wait_for_nested_element(self, selector, description, timeout=30):
+        if isinstance(selector, BaseElement):
+            selector = selector.locator
         selector = self._get_full_locator(selector)
         self.page.wait_for_element_visibility(
             selector, description, timeout
@@ -120,21 +123,10 @@ class ViewModal(BaseContainer):
     Модалка создания/редактирования представления
     """
     locator = '#fieldModal.representation-modal'
-
-    selectors = {
-        'name_and_search_form': '.form input',
-        'search_input': '.left > input'
-    }
-
     name = InputElement(locator='input[name="name"]')
-    new_field = FieldElement(locator='//div[contains(@aria-roledescription, "Draggable item")]')
-    # понимаю что не лучший селектор, но др варианты возвращают большой массив
-    search_field = InputElement(locator=selectors['search_input'])
-    # сюда добавить элементы модалки
-
-    def wait_for_visible(self):
-        super(ViewModal, self).wait_for_visible()
-        self.wait_for_nested_element(self.selectors['name_and_search_form'], "Modal form fields were not visible")
+    new_field = FieldElement(locator='.label')
+    search_field = InputElement(locator='input[placeholder="Поиск поля"]') #понимаю что не лучший селектор, но др варианты возвращают большой массив
+    #сюда добавить элементы модалки
 
     def set_view_name(self):
         # генерирует новое имя и заполняет поле "Наименование"
@@ -143,14 +135,15 @@ class ViewModal(BaseContainer):
         return new_name
 
     def add_field(self, field_name):
-        # находит и добавляет новое поле в блок "Выбранные поля"
+        #находит и добавляет новое поле в блок "Выбранные поля"
         self.search_field = field_name
         self.new_field = field_name
 
     def submit(self):
-        # Нажимаем кнопку Сохранить
+        #Нажимаем кнопку Сохранить
         self.wait_for_element_clickable('button.ui.button.blue', 'Button is not clickable')
         self.find_nested_by_css('button.ui.button.blue').first.click()
+
 
 
 class SelectView(BaseContainer):
