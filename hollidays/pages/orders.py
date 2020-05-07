@@ -1,5 +1,5 @@
 from hollidays.pages import BasePage
-from hollidays.pages.base.containers import SelectView, ViewModal
+from hollidays.pages.Base.containers import SelectView, ViewModal
 
 
 class OrdersPage(BasePage):
@@ -21,3 +21,6 @@ class OrdersPage(BasePage):
     def modal_is_visible(self):
         self.modal.wait_for_visible()
         return True
+
+    #def get_current_view_name(self):
+

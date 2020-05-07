@@ -1,6 +1,6 @@
 from hollidays.pages import BasePage
-from hollidays.pages.base.containers import LoginForm, BaseContainer
-from hollidays.pages.base.elements import DropdownElement
+from hollidays.pages.Base.containers import LoginForm, BaseContainer
+from hollidays.pages.Base.elements import DropdownElement
 
 
 RUSSIAN = 1

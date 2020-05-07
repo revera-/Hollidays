@@ -101,6 +101,7 @@ class FieldElement(BaseElement):
     def __set__(self, obj, field_name):
         page = self.get_page(obj)
         browser = page.browser
+        self.locator = '//div[3]/div/div[2]/div/div/div/div/div/div'
         # важно! source_element должен быть WebElement, а не BrowserQuery!
         source_element = browser.find_element_by_xpath(self.locator)
         ActionChains(browser).double_click(source_element).perform()

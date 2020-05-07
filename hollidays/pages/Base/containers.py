@@ -7,8 +7,8 @@ from bok_choy.browser import save_screenshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from hollidays.pages import BaseElement
-from hollidays.pages.Base.elements import InputElement, DropdownElement, FieldElement
+#from hollidays.pages import BaseElement
+from hollidays.pages.Base.elements import InputElement, DropdownElement, FieldElement, BaseElement
 
 
 class BaseContainer:
@@ -123,9 +123,15 @@ class ViewModal(BaseContainer):
     Модалка создания/редактирования представления
     """
     locator = '#fieldModal.representation-modal'
-    name = InputElement(locator='input[name="name"]')
-    new_field = FieldElement(locator='.label')
-    search_field = InputElement(locator='input[placeholder="Поиск поля"]') #понимаю что не лучший селектор, но др варианты возвращают большой массив
+    selectors = {
+        'new_name': 'input[name="name"]',
+        'new_field': '.label',
+        'search_field': 'input[placeholder="Поиск поля"]'
+        #'new_field': '//div[3]/div/div[2]/div/div/div/div/div/div'
+    }
+    name = InputElement(locator=selectors['new_name'])
+    new_field = FieldElement(locator=selectors['new_field'])
+    search_field = InputElement(locator=selectors['search_field'])
     #сюда добавить элементы модалки
 
     def set_view_name(self):
@@ -153,3 +159,8 @@ class SelectView(BaseContainer):
     def select(self, item_num):
         self.options = item_num
         save_screenshot(self.page.browser, 'create')
+
+    @property
+    def get_current_item(self):
+        self.wait_for_nested_element('div.text', 'View name is not ready')
+        return str(self.find_nested_by_css('div.text').text)[2:-2]

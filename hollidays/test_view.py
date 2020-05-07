@@ -1,6 +1,7 @@
 import time
 
-from hollidays.pages.base.elements import CREATE
+from hollidays.pages.Base.containers import SelectView
+from hollidays.pages.Base.elements import CREATE
 from hollidays.pages.orders import OrdersPage
 from hollidays.pages.views import View
 from hollidays import BaseWebTest
@@ -30,7 +31,7 @@ class TestView(BaseWebTest):
         view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
 
-    def test_create_new_view(self):
+    def test_user_can_create_new_view(self):
         """
         Делаю новый тест на основе новой архитектуры классов
         Тест создает новое представление с уникальным именем.
@@ -50,10 +51,10 @@ class TestView(BaseWebTest):
         view_page.wait_for_page()
         view_page.dropdown.select(CREATE)  # выбираем Create
         assert view_page.modal_is_visible()
-        view_page.modal.set_view_name()  # вводим новое имя
+        new_name = view_page.modal.set_view_name()  # вводим новое имя
         view_page.modal.add_field('Номер накладной BDF')
-        #view_page.modal.submit() #7
-        #assert view_page._get_current_view_name() == new_name
+        view_page.modal.submit() #7
+        assert view_page.dropdown.get_current_item == new_name
 
     def test_detete_new_view(self):
         """
